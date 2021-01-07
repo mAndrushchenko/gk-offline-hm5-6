@@ -1,4 +1,5 @@
 const setTag = document.querySelector('.tag-maker');
+const img = document.querySelector('img');
 const wrapper = document.querySelector('.wrapper');
 let item = document.querySelectorAll('.item');
 const buttonClose = [...document.querySelectorAll('.btn-close')];
@@ -6,8 +7,6 @@ const buttonClose = [...document.querySelectorAll('.btn-close')];
 let children = wrapper.children;
 
 children = Array.prototype.slice.call(children);
-
-
 
 setTag.addEventListener('keyup', makeTage);
 
@@ -28,7 +27,7 @@ function newTag (value) {
     buttonClose.push(button);
 
     const div = document.createElement('div');
-    div.classList.add('item');
+    div.classList.add('item', 'new-item');
     div.appendChild(input);
     div.appendChild(button);
     return div;
@@ -57,16 +56,39 @@ function onMouseDown(e) {
     let prevY = e.clientY;
 
     const onMouseMove  = (e) =>  {
-        let newX = prevX - e.clientX;
-        let newY= prevY - e.clientY;
-
+        img.classList.add('red-border')
         const rect = this.getBoundingClientRect();
+        const newX = prevX - e.clientX;
+        const newY= prevY - e.clientY;
+        const newLeftPosition = rect.left  - newX;
+        const newTopPosition = rect.top - newY;
+        const ruleForX = newLeftPosition <= 155 || newLeftPosition >= 940;
+        const ruleForY = newTopPosition <= 155 || newTopPosition >= 720;
 
-        this.style.left = rect.left - newX + 'px';
-        this.style.top = rect.top - newY + 'px';
+        if (ruleForX) {
+            this.style.left = rect.left + 'px';
 
-        prevX = e.clientX;
-        prevY = e.clientY;
+            if (!ruleForY) {
+                this.style.top = newTopPosition + 'px';
+                prevY = e.clientY;
+            }
+        }
+        else if (ruleForY) {
+            this.style.top = rect.top + 'px';
+
+            if (!ruleForX) {
+                this.style.left = newLeftPosition + 'px';
+                prevX = e.clientX;
+            }
+        } else  {
+            img.classList.remove('red-border')
+
+            this.style.left = newLeftPosition + 'px';
+            this.style.top = newTopPosition + 'px';
+
+            prevX = e.clientX;
+            prevY = e.clientY;
+        }
     }
     const onMouseUp = () => {
         window.removeEventListener('mousemove', onMouseMove);
@@ -75,6 +97,3 @@ function onMouseDown(e) {
     window.addEventListener('mousemove', onMouseMove);
     window.addEventListener('mouseup', onMouseUp);
 }
-
-
-

@@ -1,13 +1,13 @@
 function perform(...args) {
     let arrOfArgs = [...args].slice(0, [...args].length - 1);
-    let fn = [...args][[...args].length-1];
+    const fn = [...args].find(el => typeof el === "function");
     arrOfArgs = fn(parseInt(arrOfArgs));
     return {
         arrOfArgs,
         fn,
         then(...args) {
-            let newArgs = [...args].slice(0, [...args].length - 1)
-            this.fn = [...args][[...args].length-1];
+            const newArgs = [...args].slice(0, [...args].length - 1)
+            this.fn = [...args].find(el => typeof el === "function");
             this.arrOfArgs = this.fn(...newArgs, this.arrOfArgs);
             return this;
         }

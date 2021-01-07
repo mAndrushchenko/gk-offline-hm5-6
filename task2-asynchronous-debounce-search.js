@@ -1,16 +1,21 @@
 const input = document.querySelector('input');
+
 input.addEventListener('keydown', (e)=>{
-        let startLength = e.target.value.length, endLength;
+        if (this.timeout) this.clearTimeout(timeout);
+
         input.style.color = 'white';
-        setTimeout(()=>{
+
+        const startLength = e.target.value.length;
+        let endLength;
+
+        this.timeout = setTimeout(()=>{
                 endLength = e.target.value.length
-                if (startLength +1  === endLength) {
-                        input.style.color = 'black'
-                } else if(e.key === 'Backspace' || e.key === 'Delete') {
+                if (startLength + 1  === endLength || e.key === 'Backspace' || e.key === 'Delete') {
                         input.style.color = 'black'
                 }
+                clearTimeout();
         },500);
-})
+});
 
 
 
