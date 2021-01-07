@@ -56,14 +56,16 @@ function onMouseDown(e) {
     let prevY = e.clientY;
 
     const onMouseMove  = (e) =>  {
-        img.classList.add('red-border')
+        img.classList.add('red-border');
         const rect = this.getBoundingClientRect();
         const newX = prevX - e.clientX;
         const newY= prevY - e.clientY;
         const newLeftPosition = rect.left  - newX;
         const newTopPosition = rect.top - newY;
-        const ruleForX = newLeftPosition <= 155 || newLeftPosition >= 940;
+        const ruleForX = newLeftPosition <= 155 || newLeftPosition >= 975;
         const ruleForY = newTopPosition <= 155 || newTopPosition >= 720;
+
+        this.children[1].style.left = newLeftPosition >= 940 ? '-30px' : '175px';
 
         if (ruleForX) {
             this.style.left = rect.left + 'px';
@@ -81,7 +83,7 @@ function onMouseDown(e) {
                 prevX = e.clientX;
             }
         } else  {
-            img.classList.remove('red-border')
+            img.classList.remove('red-border');
 
             this.style.left = newLeftPosition + 'px';
             this.style.top = newTopPosition + 'px';
