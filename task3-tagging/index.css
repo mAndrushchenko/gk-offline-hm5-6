@@ -31,7 +31,7 @@ img {
 }
 
 .red-border {
-    border: #d91b42 2px solid;
+    box-shadow: 0 0 10px 6px rgba(217, 27, 66, 0.9);
 }
 
 h1 {
@@ -70,6 +70,7 @@ h1 {
 }
 
 .box {
+    user-select: none;
     padding-left: 5px;
     font-weight: bold;
     font-family: sans-serif;
@@ -82,6 +83,7 @@ h1 {
     position: absolute;
     z-index: 1;
 }
+
 
 .btn-close {
     z-index: 1;
